@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085866726415",
+    "project_id": "moviepicker-19724",
+    "storage_bucket": "moviepicker-19724.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085866726415:android:fe56719b36a9523d46ff7a",
+        "android_client_info": {
+          "package_name": "mina.app.movieapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI9ol1ZJ3oT0fvjOjv-AL26CS3RUltf8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
