@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MovieApp"
         tools:targetApi="31">
         <activity
+            android:name=".Initialization"
+            android:exported="false" />
+        <activity
             android:name=".logInActivity"
             android:exported="true">
             <intent-filter>
