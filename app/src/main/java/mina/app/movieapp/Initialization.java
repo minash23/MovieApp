@@ -8,9 +8,11 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class Initialization extends AppCompatActivity {
 
-    String[] selectedGenres = new String[11];
+    ArrayList<String> selectedGenres = new ArrayList<>();
     Button actionBT;
     Button feelgoodBT;
     Button dramaBT;
@@ -29,13 +31,12 @@ public class Initialization extends AppCompatActivity {
         public void onClick(View v) {
             Button b = (Button) v;
             String textonbutton = b.getText().toString();
-            if(b.getBackgroundTintList().hashCode() == "d3d3d3".hashCode()){
+            if(!selectedGenres.contains(textonbutton)){
                 b.setBackgroundColor("9747FF".hashCode());
-                addToGenreArray(textonbutton);
+                selectedGenres.add(textonbutton);
             }else{
                 b.setBackgroundColor("d3d3d3".hashCode());
-                int index = findInGenreArray(textonbutton);
-                selectedGenres[index] = null;
+                selectedGenres.remove(textonbutton);
             }
         }
     };
@@ -71,23 +72,4 @@ public class Initialization extends AppCompatActivity {
         documentaryBT.setOnClickListener(genreSelect);
         truestoryBT.setOnClickListener(genreSelect);
     }
-
-    public int findInGenreArray(String genre){
-        for(int i = 0; i < selectedGenres.length; i++){
-            if(genre.equals(selectedGenres[i])){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void addToGenreArray(String genre){
-        for(int i = 0; i < selectedGenres.length;i++){
-            if(selectedGenres[i] == null){
-                selectedGenres[i] = genre;
-                return;
-            }
-        }
-    }
-
 }
