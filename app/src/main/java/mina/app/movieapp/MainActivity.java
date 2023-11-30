@@ -13,20 +13,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
     }
 
-    private void storeAccountInFirebase(User user) {
-        String userName = user.getName();
+    //Account checker below
+    private DatabaseReference databaseReference;
 
-        databaseReference.orderByChild("name").equalTo(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void storeAccountInFirebase(User user) {
+        String userKey = user.getEmail();
+
+        databaseReference.orderByChild("name").equalTo(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Toast.makeText(getApplicationContext(), userName + " already stored in database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), userKey + " already stored in database", Toast.LENGTH_SHORT).show();
                 } else {
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(user);
-                    Toast.makeText(getApplicationContext(), userName + " added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), userKey + " added!", Toast.LENGTH_SHORT).show();
                 }
             }
 
