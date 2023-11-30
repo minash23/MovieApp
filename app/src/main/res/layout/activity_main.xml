@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/dramaBT"
         android:layout_width="100dp"
         android:layout_height="90dp"
         android:layout_marginTop="484dp"
@@ -59,7 +59,7 @@
         android:textColor="#66458E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/feelgoodBT"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -91,27 +91,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/feelgoodBT"
         android:layout_width="100dp"
         android:layout_height="90dp"
         android:layout_marginTop="484dp"
         android:backgroundTint="@color/white"
         android:text="Button"
         android:textColor="#66458E"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintEnd_toStartOf="@+id/dramaBT"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/actionBT"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/actionBT"
         android:layout_width="100dp"
         android:layout_height="90dp"
         android:layout_marginTop="484dp"
         android:backgroundTint="@color/white"
         android:text="Button"
         android:textColor="#66458E"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/feelgoodBT"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -141,7 +141,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/button5"
+        android:id="@+id/awardwinnersBT"
         android:layout_width="37dp"
         android:layout_height="43dp"
         android:layout_marginStart="110dp"
@@ -153,7 +153,7 @@
         app:tint="#561A9F" />
 
     <ImageButton
-        android:id="@+id/button6"
+        android:id="@+id/comedyBT"
         android:layout_width="60dp"
         android:layout_height="52dp"
         android:layout_marginTop="648dp"
@@ -168,7 +168,7 @@
         app:tint="#FFFFFF" />
 
     <ImageButton
-        android:id="@+id/button7"
+        android:id="@+id/arthouseBT"
         android:layout_width="38dp"
         android:layout_height="42dp"
         android:layout_marginStart="260dp"
