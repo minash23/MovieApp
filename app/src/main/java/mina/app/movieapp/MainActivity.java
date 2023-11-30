@@ -1,5 +1,11 @@
 package mina.app.movieapp;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,15 +21,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        storeUserInFirebase(data);
     }
 
     //Account checker below
     private DatabaseReference databaseReference;
 
-    private void storeAccountInFirebase(User user) {
+    private void storeUserInFirebase(User user) {
         String userKey = user.getEmail();
 
-        databaseReference.orderByChild("name").equalTo(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByChild("email").equalTo(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
