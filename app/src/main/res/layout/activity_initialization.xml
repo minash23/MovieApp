@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#551663"
-    android:backgroundTint="#E8C2FF"
+    android:background="@drawable/activity_bg"
     android:theme="@android:style/Theme.Light"
     tools:context=".Initialization">
 
     <TextView
         android:id="@+id/textView"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/textView2"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -51,6 +52,7 @@
 
     <TextView
         android:id="@+id/textView3"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -77,9 +79,13 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
+                android:layout_width="116dp"
                 android:layout_height="wrap_content"
-                android:text="Action"
+                android:layout_weight="1"
+                android:text="@string/action"
+                android:textSize="12sp"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="779dp" />
 
@@ -87,13 +93,21 @@
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Feel Good" />
+                android:layout_weight="1"
+                android:text="@string/feel_good"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Drama" />
+                android:layout_weight="1"
+                android:text="@string/drama"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </TableRow>
 
         <TableRow
@@ -104,21 +118,33 @@
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Award Winners"
+                android:text="@string/award_winners"
+                android:layout_weight="0"
                 tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="779dp" />
+                tools:layout_editor_absoluteY="779dp"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comedy" />
+                android:layout_weight="10"
+                android:text="@string/comedy"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Art House" />
+                android:layout_weight="1"
+                android:text="@string/art_house"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </TableRow>
 
         <TableRow
@@ -129,21 +155,33 @@
                 android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thriller"
+                android:text="@string/thriller"
+                android:layout_weight="10"
                 tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="779dp" />
+                tools:layout_editor_absoluteY="779dp"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Horror" />
+                android:textSize="12sp"
+                android:text="@string/horror"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:layout_weight="10"/>
 
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kids Movies" />
+                android:textSize="12sp"
+                android:text="@string/kids_movies"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:layout_weight="0"/>
         </TableRow>
 
         <TableRow
@@ -156,24 +194,31 @@
                 android:layout_height="wrap_content"
                 android:text="Documentary"
                 tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="779dp" />
+                tools:layout_editor_absoluteY="779dp"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/button12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="True Stories" />
+                android:text="@string/true_stories"
+                android:backgroundTint="#d3d3d3"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
         </TableRow>
     </TableLayout>
 
     <TextView
         android:id="@+id/textView4"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="What streaming platforms do you have?"
+        android:text="@string/what_streaming_platforms_do_you_have"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
@@ -184,7 +229,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="Let's Watch"
+        android:text="@string/let_s_watch"
+        android:backgroundTint="@color/white"
+        android:textColor="#66458E"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 

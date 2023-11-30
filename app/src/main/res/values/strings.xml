@@ -3,4 +3,16 @@
     <string name="what_are_your_favorite_films">What are your favorite films?</string>
     <string name="let_s_get_to_know_you">Let\'s get to know you</string>
     <string name="what_are_your_favorite_genres">What are your favorite genres?</string>
+    <string name="action">Action</string>
+    <string name="feel_good">Feel Good</string>
+    <string name="drama">Drama</string>
+    <string name="award_winners">Award Winners</string>
+    <string name="comedy">Comedy</string>
+    <string name="art_house">Art House</string>
+    <string name="thriller">Thriller</string>
+    <string name="horror">Horror</string>
+    <string name="kids_movies">Kids Movies</string>
+    <string name="true_stories">True Stories</string>
+    <string name="what_streaming_platforms_do_you_have">What streaming platforms do you have?</string>
+    <string name="let_s_watch">Let\'s Watch</string>
 </resources>
