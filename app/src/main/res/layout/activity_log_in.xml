@@ -34,18 +34,19 @@
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="1dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/pass_view"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass_view" />
 
     <Button
         android:id="@+id/log_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_200"
         android:text="LOG IN"
         app:layout_constraintStart_toStartOf="parent"
