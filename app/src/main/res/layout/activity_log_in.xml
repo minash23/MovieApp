@@ -9,6 +9,17 @@
     android:theme="@android:style/Theme.Light"
     tools:context=".logInActivity">
 
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="Sign Up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="344dp"
@@ -42,11 +53,11 @@
         app:layout_constraintTop_toBottomOf="@+id/pass_view" />
 
     <Button
-        android:id="@+id/log_in_button"
+        android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@color/purple_200"
         android:text="LOG IN"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,5 +84,16 @@
         android:textColor="@color/purple_200"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_input" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="25dp"
+        android:text="or"
+        android:textColor="@color/purple_200"
+        app:layout_constraintStart_toEndOf="@+id/create_button"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

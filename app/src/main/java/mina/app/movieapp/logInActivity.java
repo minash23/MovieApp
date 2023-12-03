@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class logInActivity extends AppCompatActivity {
     Button logInButton;
+    Button SignUpButton;
     EditText userInput;
     EditText passInput;
     FirebaseUser user;
@@ -27,6 +28,13 @@ public class logInActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             signInAccount(userInput.getText().toString().trim(), passInput.getText().toString().trim());
+        }
+    };
+    View.OnClickListener signListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), signUpActivity.class);
+            startActivity(intent);
         }
     };
 
@@ -38,7 +46,7 @@ public class logInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Hi", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             Intent intent = new Intent(getApplicationContext(), Initialization.class);
                             startActivity(intent);
                         } else {
@@ -52,41 +60,22 @@ public class logInActivity extends AppCompatActivity {
                 });
     }
 
-    public void createAccount(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("Hi", "createUserWithEmail:success");
-                            user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("hi", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
-                        }
-                    }
-                });
-    }
-
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        logInButton = findViewById(R.id.log_in_button);
+        logInButton = findViewById(R.id.create_button);
         passInput = findViewById(R.id.password_input);
         userInput = findViewById(R.id.username_input);
+        SignUpButton = findViewById(R.id.sign_up_button);
 
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         logInButton.setOnClickListener(logListener);
+        SignUpButton.setOnClickListener(signListener);
 
     }
 }
