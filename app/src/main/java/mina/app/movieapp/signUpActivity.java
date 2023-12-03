@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signUpActivity extends AppCompatActivity {
     Button createButton;
@@ -57,17 +61,42 @@ public class signUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             User user = new User();
-                            // Sign in success, update UI with the signed-in user's information
-                            // NEED TO USE USER CLASS TO ADD USER TO DATABASE
                             user.setEmail(email);
                             user.setFirstName(firstInput.getText().toString().trim());
                             user.setLastName(lastInput.getText().toString().trim());
+
+                            // Get a reference to the root of the database
+                            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+                            // Reference to the "Users" branch and push a new unique key
+                            DatabaseReference usersRef = rootRef.child("Users").push();
+
+                            // Set the user data under the generated key
+                            usersRef.setValue(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // User data added successfully
+                                            // You can add further actions here if needed
+                                            Toast.makeText(getApplicationContext(), "User added to database", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Failed to add user data
+                                            Toast.makeText(getApplicationContext(), "Failed to add user to database", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+
                             passInput.setText("");
                             firstInput.setText("");
                             lastInput.setText("");
                             emailInput.setText("");
                             Toast.makeText(getApplicationContext(), "User Has Been Created!", Toast.LENGTH_LONG).show();
                             Log.d("Hi", "createUserWithEmail:success");
+
                             //user = mAuth.getCurrentUser();
                             // updateUI(user);
                         } else {
@@ -82,7 +111,7 @@ public class signUpActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(getApplicationContext(), "Account Creation failed.", Toast.LENGTH_SHORT).show();
                             }
-                            // updateUI(null);
+
                         }
                     }
                 });
