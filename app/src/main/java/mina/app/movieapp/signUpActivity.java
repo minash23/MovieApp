@@ -68,7 +68,7 @@ public class signUpActivity extends AppCompatActivity {
                             // Get a reference to the root of the database
                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-                            // Reference to the "Users" branch and push a new unique key
+                            // Reference to the "Users" branch and push a\ new unique key
                             DatabaseReference usersRef = rootRef.child("Users").push();
 
                             // Set the user data under the generated key

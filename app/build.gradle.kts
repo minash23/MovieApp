@@ -45,4 +45,5 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-auth")
+    implementation ("com.amitshekhar.android:android-networking:1.0.2")
 }
