@@ -78,7 +78,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/actionBT"
                 android:layout_width="116dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -90,7 +90,7 @@
                 tools:layout_editor_absoluteY="779dp" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/feelgoodBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,7 +100,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/dramaBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -115,7 +115,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/awardwinnersBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/award_winners"
@@ -127,7 +127,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/comedyBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -137,7 +137,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/arthouseBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -152,7 +152,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/thrillerBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/thriller"
@@ -164,7 +164,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/horrorBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -174,7 +174,7 @@
                 android:layout_weight="10"/>
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/kidsmovieBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -189,7 +189,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button11"
+                android:id="@+id/documentaryBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Documentary"
@@ -200,7 +200,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button12"
+                android:id="@+id/truestoryBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/true_stories"
@@ -224,7 +224,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <Button
-        android:id="@+id/button13"
+        android:id="@+id/letswatchBT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        storeUserInFirebase(data);
+        //storeUserInFirebase(data);
     }
 
     //Account checker below
