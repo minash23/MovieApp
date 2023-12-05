@@ -3,6 +3,14 @@ package mina.app.movieapp;
 import java.util.ArrayList;
 
 public class User {
+
+    String email;
+    String firstName;
+    String lastName;
+    ArrayList<String> favoriteFilms;
+    ArrayList<String> genres;
+    ArrayList<String> streamingPlatforms;
+    boolean initialized;
     public User() {
     }
 
@@ -15,14 +23,6 @@ public class User {
         this.streamingPlatforms = streamingPlatforms;
         this.initialized = initialized;
     }
-
-    String email;
-    String firstName;
-    String lastName;
-    ArrayList<String> favoriteFilms;
-    ArrayList<String> genres;
-    ArrayList<String> streamingPlatforms;
-    boolean initialized;
 
     public String getEmail() {
         return email;
