@@ -32,10 +32,10 @@ public class Initialization extends AppCompatActivity {
             Button b = (Button) v;
             String textonbutton = b.getText().toString();
             if(!selectedGenres.contains(textonbutton)){
-                b.setBackgroundColor("9747FF".hashCode());
+                b.setBackgroundColor(getResources().getColor(R.color.purple));
                 selectedGenres.add(textonbutton);
             }else{
-                b.setBackgroundColor("d3d3d3".hashCode());
+                b.setBackgroundColor(getResources().getColor(R.color.grey));
                 selectedGenres.remove(textonbutton);
             }
         }
