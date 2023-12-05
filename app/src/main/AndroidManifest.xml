@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MovieApp"
         tools:targetApi="31">
         <activity
-            android:name=".logInActivity"
+            android:name=".resultsActivity"
             android:exported="false" />
         <activity
             android:name=".signUpActivity"
@@ -25,7 +25,7 @@
             android:name=".Initialization"
             android:exported="false" />
         <activity
-            android:name=".resultsActivity"
+            android:name=".logInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
