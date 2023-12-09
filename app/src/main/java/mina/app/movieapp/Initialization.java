@@ -2,6 +2,7 @@ package mina.app.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class Initialization extends AppCompatActivity {
 
     ArrayList<String> selectedGenres = new ArrayList<>();
     ArrayList<String> selectedStreamPF = new ArrayList<>();
+    FirebaseUser user;
+    FirebaseAuth mAuth;
     Button actionBT;
     Button feelgoodBT;
     Button dramaBT;
@@ -52,6 +56,14 @@ public class Initialization extends AppCompatActivity {
                 b.setTextColor(getResources().getColor(R.color.black));
                 selectedGenres.remove(textonbutton);
             }
+        }
+    };
+
+    View.OnClickListener letsWatch = new View.OnClickListener() {
+        @Override
+        public void onClick(View v){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         }
     };
 
@@ -92,6 +104,10 @@ public class Initialization extends AppCompatActivity {
         kidsmovieBT.setOnClickListener(genreSelect);
         documentaryBT.setOnClickListener(genreSelect);
         truestoryBT.setOnClickListener(genreSelect);
+        letswatchBT.setOnClickListener(letsWatch);
+
+        mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getCurrentUser().getEmail().toString();
     }
 
     public void onClick(View v) {
