@@ -22,9 +22,6 @@
             android:name=".Initialization"
             android:exported="false" />
         <activity
-            android:name=".movieInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".resultsActivity"
             android:exported="false" />
         <activity
