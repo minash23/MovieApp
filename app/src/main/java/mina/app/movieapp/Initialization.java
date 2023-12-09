@@ -139,6 +139,9 @@ public class Initialization extends AppCompatActivity {
                                             if (dataSnapshot.exists()) {
                                                 // Set initialized to true if not already set
                                                 userRef.child("initialized").setValue(true);
+                                                userRef.child("selectedGenres").setValue(selectedGenres);
+                                                userRef.child("streamingServices").setValue(selectedStreamPF);
+
                                             }
                                             // Now retrieve the initialized value
                                             userRef.child("initialized").addListenerForSingleValueEvent(
