@@ -1,5 +1,6 @@
 package mina.app.movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,11 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -62,10 +68,14 @@ public class Initialization extends AppCompatActivity {
     View.OnClickListener letsWatch = new View.OnClickListener() {
         @Override
         public void onClick(View v){
+            Log.d("email", mAuth.getCurrentUser().getEmail().toString().trim());
+            getInitializedValue(mAuth.getCurrentUser().getEmail().toString().trim());
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
     };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +117,62 @@ public class Initialization extends AppCompatActivity {
         letswatchBT.setOnClickListener(letsWatch);
 
         mAuth = FirebaseAuth.getInstance();
-        String email = mAuth.getCurrentUser().getEmail().toString();
     }
+
+    public void getInitializedValue(String userEmail) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference usersRef = database.getReference("/Users");
+
+        usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String userKey = dataSnapshot.getChildren().iterator().next().getKey();
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("/Users/" + userKey);
+
+                            // Set initialized to true if not already set
+                            userRef.child("initialized").addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                // Set initialized to true if not already set
+                                                userRef.child("initialized").setValue(true);
+                                            }
+                                            // Now retrieve the initialized value
+                                            userRef.child("initialized").addListenerForSingleValueEvent(
+                                                    new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            boolean initializedValue = dataSnapshot.getValue(Boolean.class);
+                                                            Log.d("Initialized Here?", String.valueOf(initializedValue));
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                            Log.e("Firebase", "Error retrieving initialized value: " + databaseError.getMessage());
+                                                        }
+                                                    });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e("Firebase", "Error checking initialized value: " + databaseError.getMessage());
+                                        }
+                                    });
+                        } else {
+                            Log.d("User", "User not found");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("Firebase", "Error querying users: " + databaseError.getMessage());
+                    }
+                });
+    }
+
 
     public void onClick(View v) {
         ImageView iv = (ImageView) v;
