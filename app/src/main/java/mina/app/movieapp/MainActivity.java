@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("vibe", vibe.getText().toString().trim());
         Log.d("Array", selectedTypes.toString());
 
+        //hello
         startActivity(intent);
     }
 
