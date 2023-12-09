@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void onClick(View view){
-        Intent intent = new Intent(getApplicationContext(), movieInfoActivity.class);
+        Intent intent = new Intent(getApplicationContext(), resultsActivity.class);
         intent.putExtra("vibe", vibe.getText().toString().trim());
         intent.putExtra("ArrayOfButtons", selectedTypes);
         Log.d("vibe", vibe.getText().toString().trim());
