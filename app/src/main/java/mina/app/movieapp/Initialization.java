@@ -3,14 +3,19 @@ package mina.app.movieapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -135,10 +140,6 @@ public class Initialization extends AppCompatActivity {
         letswatchBT.setOnClickListener(letsWatch);
 
         mAuth = FirebaseAuth.getInstance();
-
-        registerForContextMenu(movie1IV);
-        registerForContextMenu(movie2IV);
-        registerForContextMenu(movie3IV);
     }
 
     public void getInitializedValue(String userEmail) {
@@ -260,11 +261,41 @@ public class Initialization extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.movieselect, menu);
-    }
+    public void selectMovie(View view){
 
+        ImageView iv = (ImageView) view;
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.fav_movie_select);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
+
+        EditText titleET = dialog.findViewById(R.id.titleET);
+        ImageView movieIV = dialog.findViewById(R.id.movieIV);
+        Button addBT = dialog.findViewById(R.id.addBT);
+
+        titleET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        addBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }
