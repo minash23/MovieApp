@@ -17,7 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANRequest;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,14 +32,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.zip.Inflater;
 
 public class Initialization extends AppCompatActivity {
 
     ArrayList<String> selectedGenres = new ArrayList<>();
     ArrayList<String> selectedStreamPF = new ArrayList<>();
+    ArrayList<String> favorieMovies = new ArrayList<>();
+    ImageView selectedMovie;
     FirebaseUser user;
     FirebaseAuth mAuth;
     Button actionBT;
@@ -164,6 +178,7 @@ public class Initialization extends AppCompatActivity {
                                                 userRef.child("initialized").setValue(true);
                                                 userRef.child("selectedGenres").setValue(selectedGenres);
                                                 userRef.child("streamingServices").setValue(selectedStreamPF);
+                                                userRef.child("favoriteMovies").setValue(favorieMovies);
 
                                             }
                                             // Now retrieve the initialized value
@@ -263,39 +278,58 @@ public class Initialization extends AppCompatActivity {
 
     public void selectMovie(View view){
 
-        ImageView iv = (ImageView) view;
+        selectedMovie = (ImageView) view;
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.fav_movie_select);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
 
         EditText titleET = dialog.findViewById(R.id.titleET);
-        ImageView movieIV = dialog.findViewById(R.id.movieIV);
-        Button addBT = dialog.findViewById(R.id.addBT);
+        Button searchBT = dialog.findViewById(R.id.searchBT);
 
-        titleET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        addBT.setOnClickListener(new View.OnClickListener() {
+        searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                makeRequest(titleET.getText().toString().toLowerCase());
                 dialog.dismiss();
             }
         });
+
         dialog.show();
     }
+
+    private void makeRequest(String title) {
+        ANRequest req = AndroidNetworking.get("\n" +
+                        "https://api.themoviedb.org/3/search/movie?api_key=dbc8826d07a32ea3f193cf0541626b5e&query={title}")
+                .addPathParameter("title", title)
+                .setPriority(Priority.LOW)
+                .build();
+        req.getAsJSONObject(requestListener);
+    }
+
+    JSONObjectRequestListener requestListener = new JSONObjectRequestListener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            try {
+                JSONArray results = response.getJSONArray("results");
+                JSONObject movie = results.getJSONObject(0);
+
+                String posterPath = movie.getString("poster_path");
+                String imageURL = "https://image.tmdb.org/t/p/w500" + posterPath;
+                Picasso.get().load(imageURL).into(selectedMovie);
+
+                String title = movie.getString("original_title");
+                favorieMovies.add(title);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(ANError anError) {
+            Log.e("API Error", "onError: " + anError.getErrorDetail());
+            Toast.makeText(getApplicationContext(), "Could not find movie.", Toast.LENGTH_LONG).show();
+        }
+    };
 }
