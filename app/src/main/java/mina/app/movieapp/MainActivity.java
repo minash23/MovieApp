@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), resultsActivity.class);
         intent.putExtra("vibe", vibe.getText().toString().trim());
         intent.putExtra("ArrayOfButtons", selectedTypes);
+
+        if (!selectedTypes.isEmpty()) {
+            intent.putExtra("genre", selectedTypes.get(0));
+        }
+
         Log.d("vibe", vibe.getText().toString().trim());
         Log.d("Array", selectedTypes.toString());
 
