@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,12 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.AndroidNetworking;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class profileActivity extends AppCompatActivity {
@@ -38,6 +46,7 @@ public class profileActivity extends AppCompatActivity {
 
 
     ArrayList<String> selectedGenres = new ArrayList<>();
+    TextView hey;
 
     int oneID;
     int twoID;
@@ -159,6 +168,37 @@ public class profileActivity extends AppCompatActivity {
                     }
                 });
     }
+    public interface NameCallback {
+        void onNameReceived(String name);
+    }
+
+    String name = "";
+    public void getName(String email, NameCallback callback) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference usersRef = database.getReference("Users");
+
+        Query query = usersRef.orderByChild("email").equalTo(email);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = "";
+                if (snapshot.exists()) {
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                        name = userSnapshot.child("firstName").getValue(String.class);
+                    }
+                } else {
+                    Log.e("", "User with email '" + email + "' not found.");
+                }
+                callback.onNameReceived(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Failed to read user data.", "");
+            }
+        });
+    }
 
 
 
@@ -188,9 +228,18 @@ public class profileActivity extends AppCompatActivity {
         three2 = findViewById(R.id.movieThreeImage2);
         four2 = findViewById(R.id.movieFourImage2);
         five2 = findViewById(R.id.movieFiveImage2);
+        hey = findViewById(R.id.heyView);
 
-        // Example usage of updateSelectedGenres
+
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().trim();
+
+        getName(userEmail, new NameCallback() {
+            @Override
+            public void onNameReceived(String name) {
+                hey.setText("Hey, " + name);
+            }
+        });
+
 
         makeRequest3(String.valueOf(getRandomNumber()), one);
         makeRequest3(String.valueOf(getRandomNumber()), two);
