@@ -1,17 +1,14 @@
 package mina.app.movieapp;
 // Import statements
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.androidnetworking.common.ANRequest;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +29,14 @@ public class profileActivity extends AppCompatActivity {
     ImageView four;
     ImageView five;
 
+    ImageView one2;
+    ImageView two2;
+    ImageView three2;
+    ImageView four2;
+    ImageView five2;
+
+
+
     ArrayList<String> selectedGenres = new ArrayList<>();
 
     int oneID;
@@ -39,6 +44,12 @@ public class profileActivity extends AppCompatActivity {
     int threeID;
     int fourID;
     int fiveID;
+    int oneID2;
+    int twoID2;
+    int threeID2;
+    int fourID2;
+    int fiveID2;
+
 
     public static int getRandomNumber() {
         // Creating a Random object
@@ -48,6 +59,41 @@ public class profileActivity extends AppCompatActivity {
         int randomNumber = random.nextInt(100000) + 1;
 
         return randomNumber;
+    }
+
+    public void movieOnClick(View view){
+        Intent intent = new Intent(getApplicationContext(), resultsActivity.class);
+        if (view == findViewById(R.id.movieOneImage)){
+            intent.putExtra("ID", oneID);
+        }
+        else if(view == findViewById(R.id.movieTwoImage)){
+            intent.putExtra("ID", twoID);
+        }
+        else if(view == findViewById(R.id.movieThreeImage)){
+            intent.putExtra("ID", threeID);
+        }
+        else if(view == findViewById(R.id.movieFourImage)){
+            intent.putExtra("ID", fourID);
+        }
+        else if(view == findViewById(R.id.movieFiveImage)){
+            intent.putExtra("ID", fiveID);
+        }
+        else if(view == findViewById(R.id.movieOneImage2)){
+            intent.putExtra("ID", oneID2);
+        }
+        else if(view == findViewById(R.id.movieTwoImage2)){
+            intent.putExtra("ID", twoID2);
+        }
+        else if(view == findViewById(R.id.movieThreeImage2)){
+            intent.putExtra("ID", threeID2);
+        }
+        else if(view == findViewById(R.id.movieFourImage2)){
+            intent.putExtra("ID", fourID2);
+        }
+        else if(view == findViewById(R.id.movieFiveImage2)){
+            intent.putExtra("ID", fiveID2);
+        }
+        startActivity(intent);
     }
 
     private void makeRequest3(String id, ImageView imageView) {
@@ -67,17 +113,32 @@ public class profileActivity extends AppCompatActivity {
                                 if(imageView == one){
                                     oneID = Integer.parseInt(id);
                                 }
-                                if(imageView == two){
+                                else if(imageView == two){
                                     twoID = Integer.parseInt(id);
                                 }
-                                if(imageView == one){
+                                else if(imageView == three){
                                     threeID = Integer.parseInt(id);
                                 }
-                                if(imageView == one){
+                                else if(imageView == four){
                                     fourID = Integer.parseInt(id);
                                 }
-                                if(imageView == one){
+                                else if(imageView == five){
                                     fiveID = Integer.parseInt(id);
+                                }
+                                if(imageView == one2){
+                                    oneID2 = Integer.parseInt(id);
+                                }
+                                if(imageView == two2){
+                                    twoID2 = Integer.parseInt(id);
+                                }
+                                if(imageView == three2){
+                                    threeID2 = Integer.parseInt(id);
+                                }
+                                if(imageView == four2){
+                                    fourID2 = Integer.parseInt(id);
+                                }
+                                if(imageView == five2){
+                                    fiveID2 = Integer.parseInt(id);
                                 }
                             } else {
                                 // Handle the case where posterPath is null or empty
@@ -106,6 +167,10 @@ public class profileActivity extends AppCompatActivity {
         Picasso.get().load(uri).into(one);
         Log.d("curr", uri);
     }
+    public void mainClick(View view){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +183,11 @@ public class profileActivity extends AppCompatActivity {
         three = findViewById(R.id.movieThreeImage);
         four = findViewById(R.id.movieFourImage);
         five = findViewById(R.id.movieFiveImage);
+        one2 = findViewById(R.id.movieOneImage2);
+        two2 = findViewById(R.id.movieTwoImage2);
+        three2 = findViewById(R.id.movieThreeImage2);
+        four2 = findViewById(R.id.movieFourImage2);
+        five2 = findViewById(R.id.movieFiveImage2);
 
         // Example usage of updateSelectedGenres
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().trim();
@@ -127,6 +197,11 @@ public class profileActivity extends AppCompatActivity {
         makeRequest3(String.valueOf(getRandomNumber()), three);
         makeRequest3(String.valueOf(getRandomNumber()), four);
         makeRequest3(String.valueOf(getRandomNumber()), five);
+        makeRequest3(String.valueOf(getRandomNumber()), one2);
+        makeRequest3(String.valueOf(getRandomNumber()), two2);
+        makeRequest3(String.valueOf(getRandomNumber()), three2);
+        makeRequest3(String.valueOf(getRandomNumber()), four2);
+        makeRequest3(String.valueOf(getRandomNumber()), five2);
 
 
     }

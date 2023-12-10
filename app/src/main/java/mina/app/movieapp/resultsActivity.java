@@ -45,19 +45,27 @@ public class resultsActivity extends AppCompatActivity {
         againButton = findViewById(R.id.B2);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            value = extras.getString("vibe");
-            array = extras.getStringArray("ArrayOfButtons");
+        if(extras != null) {
+            String movieID = String.valueOf(extras.getInt("ID"));
+            Log.d("movie", movieID);
+            if (movieID != null && Integer.parseInt(movieID) != 0) {
+                makeRequestInf(movieID);
+                makeRequestInf2(movieID);
+                makeRequest3(movieID);
+                movieID = null;
+            } else {
+                value = extras.getString("vibe");
+                array = extras.getStringArray("ArrayOfButtons");
+                String genre = extras.getString("genre");
 
-            String genre = extras.getString("genre");
+                // Map the genre to its corresponding ID
+                String genreId = mapGenreToId(genre);
 
-            // Map the genre to its corresponding ID
-            String genreId = mapGenreToId(genre);
-
-            if (genreId != null) {
-                makeRequest(genreId);
-                makeRequest2(genreId);
-                makeRequest3(genreId);
+                if (genreId != null) {
+                    makeRequest(genreId);
+                    makeRequest2(genreId);
+                    makeRequest3(genreId);
+                }
             }
         }
 
@@ -78,6 +86,48 @@ public class resultsActivity extends AppCompatActivity {
             }
         });
     }
+    public String returnGens(JSONArray array) throws JSONException {
+        String genres = "";
+        for (int i = 0; i < array.length(); i++){
+            JSONObject genreObject = array.getJSONObject(i);
+            String genreName = genreObject.getString("name");
+            genres += genreName + ", ";
+        }
+        return genres;
+    }
+
+    JSONObjectRequestListener requestListener2 = new JSONObjectRequestListener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            try {
+                String title = response.getString("original_title");
+                ((TextView) findViewById(R.id.T1)).setText(title);
+
+                JSONArray genres = response.getJSONArray("genres");
+                Log.d("gen", genres.toString());
+                String genre = returnGens(genres);
+                Log.d("gen", genre);
+                ((TextView) findViewById(R.id.T2)).setText(genre);
+
+                String date = response.getString("release_date");
+                String year = date.split("-")[0]; // This will display the year only
+                ((TextView) findViewById(R.id.T4)).setText(year);
+
+                String posterPath = response.getString("poster_path");
+                String imageURL = "https://image.tmdb.org/t/p/w500" + posterPath;
+                Picasso.get().load(imageURL).into(imageView);
+
+            } catch (JSONException e) {
+                Log.e("JSON Parsing Error", "Error parsing JSON response", e);
+            }
+        }
+
+        @Override
+        public void onError(ANError anError) {
+            Log.e("API Error", "onError: " + anError.getErrorDetail());
+        }
+    };
+
 
     JSONObjectRequestListener requestListener = new JSONObjectRequestListener() {
         @Override
@@ -121,6 +171,47 @@ public class resultsActivity extends AppCompatActivity {
                 .build();
         req.getAsJSONObject(requestListener);
     }
+
+    private void makeRequestInf(String movieId) {
+        ANRequest req = AndroidNetworking.get("https://api.themoviedb.org/3/movie/{id}?api_key=dbc8826d07a32ea3f193cf0541626b5e")
+                .addPathParameter("id", movieId)
+                .setPriority(Priority.LOW)
+                .build();
+        req.getAsJSONObject(requestListener2);
+    }
+    private void makeRequestInf2(String id) {
+        ANRequest req = AndroidNetworking.get("https://api.themoviedb.org/3/movie/{id}/release_dates?api_key=dbc8826d07a32ea3f193cf0541626b5e")
+                .addPathParameter("id", id)
+                .setPriority(Priority.LOW)
+                .build();
+        req.getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray results = response.getJSONArray("results");
+                    if (results.length() > 0) {
+                        JSONObject releaseInfo = results.getJSONObject(0);
+
+                        String certification = releaseInfo.getString("release_date");
+                        ((TextView) findViewById(R.id.T5)).setText(certification);
+
+                        int runtime = releaseInfo.getInt("runtime");
+                        ((TextView) findViewById(R.id.T3)).setText(runtime + " mins");
+                    } else {
+                        Log.e("API Error", "No release date information found.");
+                    }
+                } catch (JSONException e) {
+                    Log.e("JSON Parsing Error", "Error parsing JSON response", e);
+                }
+            }
+
+            @Override
+            public void onError(ANError anError) {
+                Log.e("API Error", "onError: " + anError.getErrorDetail());
+            }
+        });
+    }
+
 
     private void makeRequest2(String id) {
         ANRequest req = AndroidNetworking.get("https://api.themoviedb.org/3/movie/{id}/release_dates?api_key=dbc8826d07a32ea3f193cf0541626b5e")
@@ -181,6 +272,7 @@ public class resultsActivity extends AppCompatActivity {
             }
         });
     }
+
     public void onClickTwo(View view){
         Intent intent = new Intent(getApplicationContext(), profileActivity.class);
         startActivity(intent);
