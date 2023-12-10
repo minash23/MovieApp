@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickTwo(View view){
+        Intent intent = new Intent(getApplicationContext(), profileActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

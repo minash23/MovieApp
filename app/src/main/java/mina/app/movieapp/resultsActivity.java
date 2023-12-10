@@ -181,6 +181,11 @@ public class resultsActivity extends AppCompatActivity {
             }
         });
     }
+    public void onClickTwo(View view){
+        Intent intent = new Intent(getApplicationContext(), profileActivity.class);
+        startActivity(intent);
+    }
+
 
 
     private String mapGenreIdsToNames(JSONArray genreIds) {
