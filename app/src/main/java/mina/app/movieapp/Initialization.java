@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class Initialization extends AppCompatActivity {
 
@@ -47,6 +50,9 @@ public class Initialization extends AppCompatActivity {
     ImageView netflixIV;
     ImageView peacockIV;
     ImageView primeIV;
+    ImageView movie1IV;
+    ImageView movie2IV;
+    ImageView movie3IV;
 
     View.OnClickListener genreSelect = new View.OnClickListener() {
         @Override
@@ -103,6 +109,18 @@ public class Initialization extends AppCompatActivity {
         primeIV = findViewById(R.id.primeIV);
         peacockIV = findViewById(R.id.peacockIV);
 
+        appleIV.setImageAlpha(127);
+        disneyIV.setImageAlpha(127);
+        hboIV.setImageAlpha(127);
+        huluIV.setImageAlpha(127);
+        netflixIV.setImageAlpha(127);
+        primeIV.setImageAlpha(127);
+        peacockIV.setImageAlpha(127);
+
+        movie1IV = findViewById(R.id.movie1IV);
+        movie2IV = findViewById(R.id.movie2IV);
+        movie3IV = findViewById(R.id.movie3IV);
+
         actionBT.setOnClickListener(genreSelect);
         feelgoodBT.setOnClickListener(genreSelect);
         dramaBT.setOnClickListener(genreSelect);
@@ -117,6 +135,10 @@ public class Initialization extends AppCompatActivity {
         letswatchBT.setOnClickListener(letsWatch);
 
         mAuth = FirebaseAuth.getInstance();
+
+        registerForContextMenu(movie1IV);
+        registerForContextMenu(movie2IV);
+        registerForContextMenu(movie3IV);
     }
 
     public void getInitializedValue(String userEmail) {
@@ -177,7 +199,7 @@ public class Initialization extends AppCompatActivity {
     }
 
 
-    public void onClick(View v) {
+    public void selectGenre(View v) {
         ImageView iv = (ImageView) v;
         if(iv == appleIV){
             if(appleIV.getImageAlpha() == 255){
@@ -238,6 +260,11 @@ public class Initialization extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movieselect, menu);
+    }
 
 }

@@ -8,7 +8,7 @@
     tools:context=".resultsActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/movie1IV"
         android:layout_width="97dp"
         android:layout_height="89dp"
         android:layout_marginStart="292dp"
