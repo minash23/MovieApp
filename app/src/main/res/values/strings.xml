@@ -18,4 +18,8 @@
     <string name="what_are_your_top_3_favorite_movies">What are your top 3 favorite movies?</string>
     <string name="documentary">Documentary</string>
     <string name="search">Search</string>
+    <string name="search_for_your_favorite_movies">Search for your favorite movies</string>
+    <string name="add_movie">Add Movie</string>
+    <string name="title">Title</string>
+    <string name="done">Done</string>
 </resources>
