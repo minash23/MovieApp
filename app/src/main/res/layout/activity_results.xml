@@ -145,6 +145,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/T6"
+        android:layout_width="254dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="788dp"
+        android:text="TextView"
+        android:textColor="#E4E4E4"
+        app:layout_constraintStart_toEndOf="@+id/T1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView14"
         android:layout_width="221dp"
         android:layout_height="53dp"

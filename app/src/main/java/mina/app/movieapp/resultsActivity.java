@@ -2,7 +2,12 @@ package mina.app.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,11 +16,15 @@ import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.squareup.picasso.Picasso;
@@ -30,10 +39,17 @@ public class resultsActivity extends AppCompatActivity {
 
     String value;
     String genreId;
+    String description;
     String[] array;
     ImageView imageView;
     ImageButton returnButton;
     Button againButton;
+    Button infoButton;
+
+    private String randomMovieTitle;
+    private String randomMovieGenre;
+    private String randomMovieYear;
+    private String randomMoviePosterPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,7 @@ public class resultsActivity extends AppCompatActivity {
         imageView = findViewById(R.id.I1);
         returnButton = findViewById(R.id.comedyBT4);
         againButton = findViewById(R.id.B2);
+        infoButton = findViewById(R.id.B1);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -68,6 +85,25 @@ public class resultsActivity extends AppCompatActivity {
                 }
             }
         }
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(resultsActivity.this);
+
+                builder.setTitle("Movie Overview");
+                builder.setMessage(description);
+                builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +173,11 @@ public class resultsActivity extends AppCompatActivity {
                 int randomIndex = new Random().nextInt(results.length());
                 JSONObject randomMovie = results.getJSONObject(randomIndex);
 
+                randomMovieTitle = randomMovie.getString("original_title");
+                randomMovieGenre = mapGenreIdsToNames(randomMovie.getJSONArray("genre_ids"));
+                randomMovieYear = randomMovie.getString("release_date").split("-")[0];
+                randomMoviePosterPath = randomMovie.getString("poster_path");
+
                 String title = randomMovie.getString("original_title");
 
                 ((TextView) findViewById(R.id.T1)).setText(title);
@@ -152,6 +193,10 @@ public class resultsActivity extends AppCompatActivity {
                 String posterPath = randomMovie.getString("poster_path");
                 String imageURL = "https://image.tmdb.org/t/p/w500" + posterPath;
                 Picasso.get().load(imageURL).into(imageView);
+
+                makeRequestInf(randomMovie.getString("id"));
+                makeRequest2(randomMovie.getString("id"));
+                makeRequest3(randomMovie.getString("id"));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -195,8 +240,7 @@ public class resultsActivity extends AppCompatActivity {
                         String certification = releaseInfo.getString("release_date");
                         ((TextView) findViewById(R.id.T5)).setText(certification);
 
-                        int runtime = releaseInfo.getInt("runtime");
-                        ((TextView) findViewById(R.id.T3)).setText(runtime + " mins");
+                        
                     } else {
                         Log.e("API Error", "No release date information found.");
                     }
@@ -260,7 +304,11 @@ public class resultsActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     int runtime = response.getInt("runtime");
+                    Log.d("API Response", "Runtime: " + runtime);
                     ((TextView) findViewById(R.id.T3)).setText(runtime + " mins");
+
+                    description = response.getString("overview");
+                    ((TextView) findViewById(R.id.T6)).setText(description);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
