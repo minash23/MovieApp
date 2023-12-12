@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#551663"
-    android:backgroundTint="#E8C2FF"
+    android:background="@drawable/sign_log_bg"
     android:theme="@android:style/Theme.Light"
     tools:context=".logInActivity">
 
